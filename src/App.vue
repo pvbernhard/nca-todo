@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import Tarefa from "./components/Tarefa.vue";
 
 const tarefas = ref([]);
 const novaTarefa = ref('');
@@ -59,21 +60,7 @@ carregarTarefas()
     </form>
   </header>
 
-  <ul v-for="tarefa in tarefas" :key="tarefa.id" class="list-group todos mx-auto text-light delete">
-    <li
-      class="list-group-item d-flex justify-content-between align-items-center"
-    >
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" :checked="tarefa.complete" :id="'check-' + tarefa.id" @click="toggleTarefa(tarefa.id)">
-        <label class="form-check-label" :for="'check-' + tarefa.id" :class="{ 'tarefa-concluida': tarefa.complete }">
-          {{ tarefa.title }}
-        </label>
-      </div>
-      <div class="actions">
-        <button class="btn btn-danger" @click="deletarTarefa(tarefa.id)">Deletar</button>
-      </div>
-    </li>
-  </ul>
+  <Tarefa v-for="tarefa in tarefas" :tarefa="tarefa" @toggle="(id) => toggleTarefa(id)" @deletar="(id) => deletarTarefa(id)" />
 </div>
 </template>
 
