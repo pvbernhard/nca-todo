@@ -28,6 +28,15 @@ async function adicionarTarefa(titulo) {
   }
 }
 
+async function deletarTarefa(id) {
+  const resultado = await fetch("http://localhost:8000/delete/" + id)
+    .then(response => response.json());
+  
+  if (resultado) {
+    carregarTarefas();
+  }
+}
+
 function carregarTarefas() {
   fetch("http://localhost:8000/")
       .then(response => response.json())
@@ -61,7 +70,7 @@ carregarTarefas()
         </label>
       </div>
       <div class="actions">
-        <button class="btn btn-danger">Delete</button>
+        <button class="btn btn-danger" @click="deletarTarefa(tarefa.id)">Deletar</button>
       </div>
     </li>
   </ul>
