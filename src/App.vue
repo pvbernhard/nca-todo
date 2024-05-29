@@ -1,5 +1,21 @@
 <script setup>
+import { ref } from "vue";
 
+const tarefas = ref([]);
+
+async function toggleTarefa(id) {
+  const resultado = await fetch("http://localhost:8000/update/" + id)
+    .then(response => response.json())
+  
+  if (resultado) {
+    const tarefa = tarefas.value.find(tarefa => tarefa.id === id);
+    tarefa.complete = !tarefa.complete;
+  }
+}
+
+fetch("http://localhost:8000/")
+    .then(response => response.json())
+    .then(data => tarefas.value = data);
 </script>
 
 <template>
@@ -15,14 +31,14 @@
     </form>
   </header>
 
-  <ul class="list-group todos mx-auto text-light delete">
+  <ul v-for="tarefa in tarefas" :key="tarefa.id" class="list-group todos mx-auto text-light delete">
     <li
       class="list-group-item d-flex justify-content-between align-items-center"
     >
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="check-1">
-        <label class="form-check-label" for="check-1">
-          Tarefa #1
+        <input class="form-check-input" type="checkbox" :checked="tarefa.complete" :id="'check-' + tarefa.id" @click="toggleTarefa(tarefa.id)">
+        <label class="form-check-label" :for="'check-' + tarefa.id" :class="{ 'tarefa-concluida': tarefa.complete }">
+          {{ tarefa.title }}
         </label>
       </div>
       <div class="actions">
@@ -34,5 +50,7 @@
 </template>
 
 <style scoped>
-
+.tarefa-concluida {
+  text-decoration: line-through;
+}
 </style>
