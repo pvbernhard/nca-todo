@@ -1,35 +1,44 @@
 @import './base.css';
+@import './bootstrap.min.css';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+body {
+  background: var(--secondary);
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 23px;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+.container {
+  min-width: 600px;
+  max-width: 65%;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+input[type="text"],
+input[type="text"]:focus {
+  color: var(--light);
+  border: none;
+  background: rgba(0, 0, 0, 0.2);
+  max-width: 400px;
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+.todos li {
+  background: var(--primary);
+  color: var(--light);
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+.delete {
+  cursor: pointer;
+}
+
+.filtered {
+  display: none !important;
+}
+
+.btn:hover {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: var(--light);
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-radius: 13px 13px;
+  transition: 0.8s;
 }
